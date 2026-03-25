@@ -1,0 +1,55 @@
+{
+  "name": "translation-tool",
+  "version": "1.0.0",
+  "description": "Translation tool from English to Vietnamese using GPT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron": "node -e \"const { spawn } = require('child_process'); const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE; const child = spawn(require('electron'), ['.'], { stdio: 'inherit', env }); child.on('exit', code => process.exit(code ?? 0));\"",
+    "electron:dev": "concurrently -k --success first \"npm run dev\" \"wait-on http://localhost:5173 && npm run electron\"",
+    "electron:build": "rm -rf dist && npm run build && electron-builder"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.1.2",
+    "@types/node": "^20.10.0",
+    "concurrently": "^8.2.2",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
+    "sharp": "^0.34.5",
+    "svelte": "^4.2.0",
+    "vite": "^5.0.0",
+    "wait-on": "^7.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^9.0.2",
+    "electron-store": "^8.1.0",
+    "openai": "^4.20.0"
+  },
+  "main": "electron/main.js",
+  "build": {
+    "appId": "com.translation.tool",
+    "productName": "Translation Tool",
+    "icon": "assets/translate_faster.png",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": "dmg",
+      "icon": "assets/translate_faster.png"
+    },
+    "win": {
+      "icon": "assets/translate_faster.png"
+    },
+    "linux": {
+      "icon": "assets/translate_faster.png"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "assets/**/*",
+      "node_modules/**/*",
+      ".env",
+      "package.json"
+    ]
+  }
+}
