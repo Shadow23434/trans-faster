@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "electron": "node -e \"const { spawn } = require('child_process'); const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE; const child = spawn(require('electron'), ['.'], { stdio: 'inherit', env }); child.on('exit', code => process.exit(code ?? 0));\"",
     "electron:dev": "concurrently -k --success first \"npm run dev\" \"wait-on http://localhost:5173 && npm run electron\"",
-    "electron:build": "rm -rf dist && npm run build && electron-builder"
+    "electron:build": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\" && npm run build && electron-builder"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.1.2",
